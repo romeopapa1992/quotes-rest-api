@@ -74,16 +74,24 @@ app.get(
     }
   );  
 
-function verifyToken(req, res, next) {
-  const token = req.headers["authorization"]?.split(" ")[1];
-  if (!token) return res.status(401).json({ message: "Unauthorized" });
-
-  jwt.verify(token, process.env.SESSION_SECRET, (err, user) => {
-    if (err) return res.status(403).json({ message: "Invalid token" });
-    req.user = user;
-    next();
-  });
-}
+  function verifyToken(req, res, next) {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+  
+    if (!token) {
+      console.error("No token provided");
+      return res.status(401).json({ message: "Unauthorized: No token" });
+    }
+  
+    jwt.verify(token, process.env.SESSION_SECRET, (err, user) => {
+      if (err) {
+        console.error("Token verification failed:", err);
+        return res.status(403).json({ message: "Invalid or expired token" });
+      }
+      req.user = user;
+      next();
+    });
+  }  
 
 app.post("/register", async (req, res) => {
   const { email, password } = req.body;
@@ -124,11 +132,41 @@ app.post("/login", async (req, res) => {
       expiresIn: "1h",
     });
 
-    res.status(200).json({ message: "Login successful", token });
+    const refreshToken = jwt.sign({ id: user.id, email: user.email }, process.env.SESSION_SECRET, {
+      expiresIn: "7d", 
+    });
+  
+    refreshTokens.push(refreshToken);
+  
+    res.status(200).json({ message: "Login successful", accessToken: token, refreshToken });
+
   } catch (err) {
     console.error("Error logging in:", err);
     res.status(500).json({ message: "Error logging in" });
   }
+});
+
+let refreshTokens = []; 
+
+app.post("/refresh-token", (req, res) => {
+  const { token } = req.body;
+
+  if (!token || !refreshTokens.includes(token)) {
+    return res.status(403).json({ message: "Refresh token is invalid" });
+  }
+
+  jwt.verify(token, process.env.SESSION_SECRET, (err, user) => {
+    if (err) {
+      return res.status(403).json({ message: "Invalid refresh token" });
+    }
+  
+
+    const accessToken = jwt.sign({ id: user.id, email: user.email }, process.env.SESSION_SECRET, {
+      expiresIn: "1h",
+    });
+
+    res.json({ accessToken });
+  });
 });
 
 app.post("/quotes", verifyToken, async (req, res) => {
@@ -210,4 +248,4 @@ app.delete("/quotes/:id", verifyToken, async (req, res) => {
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
-});
+}); 
