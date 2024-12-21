@@ -102,7 +102,6 @@ app.post("/register", async (req, res) => {
       "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING id, email",
       [email, hashedPassword]
     );
-
     res.status(201).json({ message: "User registered successfully", user: result.rows[0] });
   } catch (err) {
     console.error("Error registering user:", err);
@@ -137,7 +136,6 @@ app.post("/login", async (req, res) => {
     });
   
     refreshTokens.push(refreshToken);
-  
     res.status(200).json({ message: "Login successful", accessToken: token, refreshToken });
 
   } catch (err) {
@@ -159,7 +157,6 @@ app.post("/refresh-token", (req, res) => {
     if (err) {
       return res.status(403).json({ message: "Invalid refresh token" });
     }
-  
 
     const accessToken = jwt.sign({ id: user.id, email: user.email }, process.env.SESSION_SECRET, {
       expiresIn: "1h",
