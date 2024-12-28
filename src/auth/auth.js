@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt";
+/*import bcrypt from "bcrypt";
 import db from "../db.js";
 
 const saltRounds = 10;
@@ -63,4 +63,5 @@ export const loginUser = async (req, res) => {
     console.error("Error logging in user:", error);
     res.status(500).json({ message: "Internal server error" });
   }
-};
+};*/
+
