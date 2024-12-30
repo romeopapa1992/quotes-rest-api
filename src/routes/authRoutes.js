@@ -92,7 +92,7 @@ router.get("/verify", (req, res) => {
       return res.status(401).json({ message: "Unauthorized: No token" });
     }
   
-    jwt.verify(token, process.env.SESSION_SECRET, (err, user) => {
+    jwt.verify(token, process.env.SESSION_SECRET, (err) => {
       if (err) {
         return res.status(403).json({ message: "Invalid or expired token" });
       }
@@ -101,3 +101,4 @@ router.get("/verify", (req, res) => {
   });
 
 export default router;
+

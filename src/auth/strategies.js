@@ -32,7 +32,7 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "http://localhost:3000/auth/google/callback",
     },
-    async (accessToken, refreshToken, profile, done) => {
+    async (profile, done) => {
       try {
         const email = profile.emails[0].value;
         const result = await db.query("SELECT * FROM users WHERE email = $1", [email]);
