@@ -10,7 +10,7 @@ import quoteRoutes from "./src/routes/quoteRoutes.js";
 import refreshTokenRoutes from "./src/routes/refreshTokenRoutes.js";
 
 const app = express();
-const port = 3000;
+const port = 4000;
 env.config();
 
 app.use(session({secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true,}))
