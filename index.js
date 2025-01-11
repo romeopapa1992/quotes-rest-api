@@ -9,11 +9,17 @@ import authRoutes from "./src/routes/authRoutes.js";
 import quoteRoutes from "./src/routes/quoteRoutes.js";
 import refreshTokenRoutes from "./src/routes/refreshTokenRoutes.js";
 
-const app = express();
-const port = 4000;
 env.config();
 
-app.use(session({secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true,}))
+console.log("Session Secret:", typeof process.env.SESSION_SECRET, process.env.SESSION_SECRET);
+console.log("PostgreSQL User:", typeof process.env.PG_USER, process.env.PG_USER);
+console.log("PostgreSQL Password Type:", typeof process.env.PG_PASSWORD);
+console.log("PostgreSQL Password:", process.env.PG_PASSWORD);
+
+const app = express();
+const port = 4000;
+
+app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.use(express.json());
@@ -28,4 +34,3 @@ app.use("/refresh-token", refreshTokenRoutes);
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
-
