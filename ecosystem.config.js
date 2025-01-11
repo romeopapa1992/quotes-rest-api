@@ -12,7 +12,7 @@ export default {
     {
       name: "quotes-app-react", 
       script: "./node_modules/.bin/serve",
-      args: "-s build -l 4173",
+      args: "-s dist -l 4173",
       cwd: "/home/rafal/quotes-app-react",
       env: {
         NODE_ENV: "production",
