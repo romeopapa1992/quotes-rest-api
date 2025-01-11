@@ -11,8 +11,8 @@ export default {
     },
     {
       name: "quotes-app-react", 
-      script: "npx",
-      args: "serve -s build -l 4173",
+      script: "./node_modules/.bin/serve",
+      args: "-s build -l 4173",
       cwd: "/home/rafal/quotes-app-react",
       env: {
         NODE_ENV: "production",
