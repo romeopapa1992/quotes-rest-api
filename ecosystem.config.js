@@ -1,7 +1,4 @@
-import env from "dotenv";
-env.config();
-
-export default {
+module.exports = {
   apps: [
     {
       name: "quotes-rest-api",
