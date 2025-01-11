@@ -1,4 +1,4 @@
-module.exports = {
+export default {
     apps: [
       {
         name: "quotes-rest-api",
@@ -15,4 +15,5 @@ module.exports = {
       },
     ],
   };
+  
   
