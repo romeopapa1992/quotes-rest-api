@@ -15,7 +15,6 @@ console.log("Session Secret:", typeof process.env.SESSION_SECRET, process.env.SE
 console.log("PostgreSQL User:", typeof process.env.PG_USER, process.env.PG_USER);
 console.log("PostgreSQL Password Type:", typeof process.env.PG_PASSWORD);
 console.log("PostgreSQL Password:", process.env.PG_PASSWORD);
-console.log("ENV Variables Loaded: ", process.env);
 
 const app = express();
 const port = 4000;
