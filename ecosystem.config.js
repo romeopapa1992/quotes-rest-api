@@ -9,14 +9,5 @@ export default {
         NODE_ENV: "production",
       },
     },
-    {
-      name: "quotes-app-react", 
-      script: "./node_modules/.bin/vite",
-      args: "preview --port 4173", 
-      cwd: "/home/rafal/quotes-app-react",
-      env: {
-        NODE_ENV: "production",
-      },
-    },
   ],
 };
