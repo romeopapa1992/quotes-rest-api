@@ -25,7 +25,7 @@ app.use(express.static("public"));
 app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: "http://localhost:4173", credentials: true }));
 
 app.use("/auth", authRoutes);
 app.use("/quotes", quoteRoutes);
