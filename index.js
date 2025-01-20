@@ -11,11 +11,6 @@ import refreshTokenRoutes from "./src/routes/refreshTokenRoutes.js";
 
 env.config();
 
-console.log("Session Secret:", typeof process.env.SESSION_SECRET, process.env.SESSION_SECRET);
-console.log("PostgreSQL User:", typeof process.env.PG_USER, process.env.PG_USER);
-console.log("PostgreSQL Password Type:", typeof process.env.PG_PASSWORD);
-console.log("PostgreSQL Password:", process.env.PG_PASSWORD);
-
 const app = express();
 const port = 4000;
 
